@@ -5,6 +5,7 @@
  */
 
 #include <stddef.h>
+#include <string.h>
 
 /*
  * Функция get_count возвращает количество гласных в заданной строке.
@@ -14,7 +15,16 @@
 
 size_t get_count(const char *s)
 {
+    int count = 0;
+    int len = strlen(s);
+    
+    for (int i = 0; i < len; i++)
+    {
+        if (s[i] == 'a' || s[i] == 'e' || s[i] == 'i' || s[i] == 'o' || s[i] == 'u')
+            count++;
+    }
+    
     // Your code here
-    return 0;
+    return count;
 }
 
