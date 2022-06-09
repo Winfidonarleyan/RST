@@ -8,6 +8,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stddef.h>
+#include <stdbool.h>
 
 /*
  * Функция archiving принимает строку заглавных латинских символов
@@ -23,9 +24,54 @@
  * Вызывающий код освобождает возвращаемый указатель
  */
 
-char *archiving(char *input)
+void append(char* s, char c)
 {
-    // Your code here
+    int len = strlen(s);
+    s[len] = c;
+}
+
+// AA H BBB CCC DD TTTTTTT EEEEE AAAAAAAAAAA
+char* archiving(char* input)
+{
+    int len = strlen(input);
+    char newStr[1024] = "";
+    char buff[5] = "";
+
+    for (int i = 0; i < len; i++)
+    {
+        char currentChar = input[i];
+        int j = i + 1;
+
+        if (j >= len)
+            break;
+
+        char nextChar = input[j];
+
+        if (nextChar != currentChar)
+        {
+            // printf("%c\n", currentChar);
+            append(newStr, currentChar);
+            continue;
+        }
+        else
+        {
+            while (true)
+            {
+                j++;
+
+                if (input[j] != currentChar)
+                {
+                    // printf("%u%c\n", j - i, currentChar);
+                    snprintf(buff, 5, "%u%c", j - i, currentChar);
+                    strcat(newStr, buff);
+                    i = j - 1;
+                    break;
+                }
+            }
+        }
+    }
+
+    input = newStr;
     return input;
 }
 
